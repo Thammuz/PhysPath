@@ -32,10 +32,20 @@ namespace phys {
         __host__ inline PinholeCamera makePinhole(float3 eye, float3 look, float3 upWorld, float vfovDeg, float aspect) {
             PinholeCamera cam{};
             cam.pos = eye;
-            cam.forward = normalize(float3{ look.x - eye.x,look.y - eye.y,look.z - eye.z });
-            cam.right = normalize(cross(cam.forward, upWorld));
+            cam.forward = normalize(float3{ look.x - eye.x, look.y - eye.y, look.z - eye.z });
+            // Build orthonormal basis; guard against upWorld parallel to forward
+            cam.right = cross(cam.forward, upWorld);
+            if (length(cam.right) < 1e-6f) {
+                // choose an arbitrary axis if forward is nearly parallel to upWorld
+                cam.right = cross(cam.forward, float3{ 1.0f, 0.0f, 0.0f });
+                if (length(cam.right) < 1e-6f) {
+                    cam.right = cross(cam.forward, float3{ 0.0f, 1.0f, 0.0f });
+                }
+            }
+            cam.right = normalize(cam.right);
             cam.up = cross(cam.right, cam.forward);
-            float tanHalf = tan(0.5f * vfovDeg * 3.14159265f / 180.f);
+
+            float tanHalf = tanf(0.5f * vfovDeg * 3.14159265f / 180.0f);
             cam.up *= tanHalf;
             cam.right *= tanHalf * aspect;
             return cam;

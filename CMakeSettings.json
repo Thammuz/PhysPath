@@ -10,7 +10,8 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
-      "cmakeExecutable": "C:\\Program Files\\CMake\\bin\\cmake.exe"
+      "cmakeExecutable": "C:\\Program Files\\CMake\\bin\\cmake.exe",
+      "cmakeToolchain": "C:/Users/phosp/dev/PhysPath/extern/vcpkg/scripts/buildsystems/vcpkg.cmake"
     }
   ]
 }

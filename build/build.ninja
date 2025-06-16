@@ -41,105 +41,19 @@ include CMakeFiles\rules.ninja
 
 cmake_ninja_workdir = C$:\Users\phosp\dev\PhysPath\build\
 # =============================================================================
-# Object build statements for EXECUTABLE target pp_cpu_hello
-
-
-#############################################
-# Order-only phony target for pp_cpu_hello
-
-build cmake_object_order_depends_target_pp_cpu_hello: phony || .
-
-build CMakeFiles\pp_cpu_hello.dir\src\pp_cpu_hello.cpp.obj: CXX_COMPILER__pp_cpu_hello_unscanned_Debug C$:\Users\phosp\dev\PhysPath\src\pp_cpu_hello.cpp || cmake_object_order_depends_target_pp_cpu_hello
-  CONFIG = Debug
-  DEFINES = -DNOMINMAX
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi
-  INCLUDES = -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include -external:W0
-  OBJECT_DIR = CMakeFiles\pp_cpu_hello.dir
-  OBJECT_FILE_DIR = CMakeFiles\pp_cpu_hello.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\pp_cpu_hello.dir\
-  TARGET_PDB = pp_cpu_hello.pdb
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target pp_cpu_hello
-
-
-#############################################
-# Link the executable pp_cpu_hello.exe
-
-build pp_cpu_hello.exe: CXX_EXECUTABLE_LINKER__pp_cpu_hello_Debug CMakeFiles\pp_cpu_hello.dir\src\pp_cpu_hello.cpp.obj | C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\embree3.lib
-  CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\embree3.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = CMakeFiles\pp_cpu_hello.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/phosp/dev/PhysPath/extern/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/phosp/dev/PhysPath/build/pp_cpu_hello.exe -installedDir C:/Users/phosp/dev/PhysPath/extern/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
-  PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\pp_cpu_hello.dir\
-  TARGET_FILE = pp_cpu_hello.exe
-  TARGET_IMPLIB = pp_cpu_hello.lib
-  TARGET_PDB = pp_cpu_hello.pdb
-
-# =============================================================================
-# Object build statements for EXECUTABLE target pp_write_exr
-
-
-#############################################
-# Order-only phony target for pp_write_exr
-
-build cmake_object_order_depends_target_pp_write_exr: phony || .
-
-build CMakeFiles\pp_write_exr.dir\src\pp_write_exr.cpp.obj: CXX_COMPILER__pp_write_exr_unscanned_Debug C$:\Users\phosp\dev\PhysPath\src\pp_write_exr.cpp || cmake_object_order_depends_target_pp_write_exr
-  CONFIG = Debug
-  DEFINES = -DIMATH_DLL -DNOMINMAX -DOPENEXR_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi /EHsc /MP
-  INCLUDES = -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\OpenEXR -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\Imath -external:W0
-  OBJECT_DIR = CMakeFiles\pp_write_exr.dir
-  OBJECT_FILE_DIR = CMakeFiles\pp_write_exr.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\pp_write_exr.dir\
-  TARGET_PDB = pp_write_exr.pdb
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target pp_write_exr
-
-
-#############################################
-# Link the executable pp_write_exr.exe
-
-build pp_write_exr.exe: CXX_EXECUTABLE_LINKER__pp_write_exr_Debug CMakeFiles\pp_write_exr.dir\src\pp_write_exr.cpp.obj | C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib
-  CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
-  LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = CMakeFiles\pp_write_exr.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/phosp/dev/PhysPath/extern/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/phosp/dev/PhysPath/build/pp_write_exr.exe -installedDir C:/Users/phosp/dev/PhysPath/extern/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
-  PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\pp_write_exr.dir\
-  TARGET_FILE = pp_write_exr.exe
-  TARGET_IMPLIB = pp_write_exr.lib
-  TARGET_PDB = pp_write_exr.pdb
-
-
-#############################################
-# Utility command for GpuPTX
-
-build GpuPTX: phony CMakeFiles\GpuPTX gpu_kernels.ptx
-
-# =============================================================================
 # Object build statements for EXECUTABLE target pp_gpu_rgb
 
 
 #############################################
 # Order-only phony target for pp_gpu_rgb
 
-build cmake_object_order_depends_target_pp_gpu_rgb: phony || GpuPTX
+build cmake_object_order_depends_target_pp_gpu_rgb: phony || .
 
 build CMakeFiles\pp_gpu_rgb.dir\src\gpu_main.cpp.obj: CXX_COMPILER__pp_gpu_rgb_unscanned_Debug C$:\Users\phosp\dev\PhysPath\src\gpu_main.cpp || cmake_object_order_depends_target_pp_gpu_rgb
   CONFIG = Debug
   DEFINES = -DIMATH_DLL -DNOMINMAX -DOPENEXR_DLL
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -std:c++20 -MDd -Zi /EHsc /MP
-  INCLUDES = -I"C:\ProgramData\NVIDIA Corporation\OptiX SDK 9.0.0\include" -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\OpenEXR -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\Imath -external:I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include" -external:W0
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++20 -MDd /EHsc /MP
+  INCLUDES = -I"C:\ProgramData\NVIDIA Corporation\OptiX SDK 9.0.0\include" -IC:\Users\phosp\dev\PhysPath\src -external:I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include" -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\OpenEXR -external:IC:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\include\Imath -external:W0
   OBJECT_DIR = CMakeFiles\pp_gpu_rgb.dir
   OBJECT_FILE_DIR = CMakeFiles\pp_gpu_rgb.dir\src
   TARGET_COMPILE_PDB = CMakeFiles\pp_gpu_rgb.dir\
@@ -153,13 +67,13 @@ build CMakeFiles\pp_gpu_rgb.dir\src\gpu_main.cpp.obj: CXX_COMPILER__pp_gpu_rgb_u
 #############################################
 # Link the executable pp_gpu_rgb.exe
 
-build pp_gpu_rgb.exe: CXX_EXECUTABLE_LINKER__pp_gpu_rgb_Debug CMakeFiles\pp_gpu_rgb.dir\src\gpu_main.cpp.obj | C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib C$:\Program$ Files\NVIDIA$ GPU$ Computing$ Toolkit\CUDA\v12.9\lib\x64\cudart.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib || GpuPTX
+build pp_gpu_rgb.exe: CXX_EXECUTABLE_LINKER__pp_gpu_rgb_Debug CMakeFiles\pp_gpu_rgb.dir\src\gpu_main.cpp.obj | C$:\Program$ Files\NVIDIA$ GPU$ Computing$ Toolkit\CUDA\v12.9\lib\x64\cuda.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /EHsc /Ob0 /Od /RTC1 -MDd -Zi
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib  "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\lib\x64\cudart.lib"  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
+  LINK_LIBRARIES = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\lib\x64\cuda.lib"  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXR-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\IlmThread-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Iex-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\OpenEXRCore-3_3_d.lib  C:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\debug\lib\Imath-3_1_d.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   OBJECT_DIR = CMakeFiles\pp_gpu_rgb.dir
-  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/phosp/dev/PhysPath/extern/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/phosp/dev/PhysPath/build/pp_gpu_rgb.exe -installedDir C:/Users/phosp/dev/PhysPath/extern/vcpkg/installed/x64-windows/debug/bin -OutVariable out && cd /D C:\Users\phosp\dev\PhysPath\build && "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/phosp/dev/PhysPath/build/gpu_kernels.ptx C:/Users/phosp/dev/PhysPath/build"
+  POST_BUILD = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/phosp/dev/PhysPath/extern/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/phosp/dev/PhysPath/build/pp_gpu_rgb.exe -installedDir C:/Users/phosp/dev/PhysPath/extern/vcpkg/installed/x64-windows/debug/bin -OutVariable out"
   PRE_LINK = cd .
   TARGET_COMPILE_PDB = CMakeFiles\pp_gpu_rgb.dir\
   TARGET_FILE = pp_gpu_rgb.exe
@@ -192,27 +106,38 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 
 
 #############################################
-# Phony custom command for CMakeFiles\GpuPTX
+# Utility command for list_install_components
 
-build CMakeFiles\GpuPTX | ${cmake_ninja_workdir}CMakeFiles\GpuPTX: phony gpu_kernels.ptx
+build list_install_components: phony
 
 
 #############################################
-# Custom command for gpu_kernels.ptx
+# Utility command for install
 
-build gpu_kernels.ptx | ${cmake_ninja_workdir}gpu_kernels.ptx: CUSTOM_COMMAND C$:\Users\phosp\dev\PhysPath\src\gpu_kernels.cu
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\bin\nvcc.exe" --ptx C:/Users/phosp/dev/PhysPath/src/gpu_kernels.cu "-I\"C:\ProgramData\NVIDIA Corporation\OptiX SDK 9.0.0/include\"" -o C:/Users/phosp/dev/PhysPath/build/gpu_kernels.ptx"
-  DESC = Compiling OptiX PTX: gpu_kernels.ptx
+build CMakeFiles\install.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && "C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake"
+  DESC = Install the project...
+  pool = console
   restat = 1
+
+build install: phony CMakeFiles\install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles\install\local.util: CUSTOM_COMMAND all
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\phosp\dev\PhysPath\build && "C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake"
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install\local: phony CMakeFiles\install\local.util
 
 # =============================================================================
 # Target aliases.
 
-build pp_cpu_hello: phony pp_cpu_hello.exe
-
 build pp_gpu_rgb: phony pp_gpu_rgb.exe
-
-build pp_write_exr: phony pp_write_exr.exe
 
 # =============================================================================
 # Folder targets.
@@ -222,7 +147,7 @@ build pp_write_exr: phony pp_write_exr.exe
 #############################################
 # Folder: C:/Users/phosp/dev/PhysPath/build
 
-build all: phony pp_cpu_hello.exe pp_write_exr.exe GpuPTX pp_gpu_rgb.exe
+build all: phony pp_gpu_rgb.exe
 
 # =============================================================================
 # Built-in targets
@@ -231,14 +156,14 @@ build all: phony pp_cpu_hello.exe pp_write_exr.exe GpuPTX pp_gpu_rgb.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja C$:\Users\phosp\dev\PhysPath\build\cmake_install.cmake: RERUN_CMAKE | C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCUDAInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeDependentOption.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeFindDependencyMacro.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeRCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindCUDAToolkit.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCXXLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCommonLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake C$:\Users\phosp\dev\PhysPath\CMakeLists.txt C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\scripts\buildsystems\vcpkg.cmake CMakeCache.txt CMakeFiles\4.0.2\CMakeCCompiler.cmake CMakeFiles\4.0.2\CMakeCUDACompiler.cmake CMakeFiles\4.0.2\CMakeCXXCompiler.cmake CMakeFiles\4.0.2\CMakeRCCompiler.cmake CMakeFiles\4.0.2\CMakeSystem.cmake
+build build.ninja C$:\Users\phosp\dev\PhysPath\build\cmake_install.cmake: RERUN_CMAKE | C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCUDAInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeDependentOption.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeFindDependencyMacro.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeRCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckCXXSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckIncludeFileCXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindCUDAToolkit.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCXXLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCommonLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake C$:\Users\phosp\dev\PhysPath\CMakeLists.txt C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\scripts\buildsystems\vcpkg.cmake CMakeCache.txt CMakeFiles\4.0.2\CMakeCUDACompiler.cmake CMakeFiles\4.0.2\CMakeCXXCompiler.cmake CMakeFiles\4.0.2\CMakeRCCompiler.cmake CMakeFiles\4.0.2\CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCUDAInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeDependentOption.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeFindDependencyMacro.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeRCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckCSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckIncludeFile.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindCUDAToolkit.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCXXLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCommonLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-C.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake C$:\Users\phosp\dev\PhysPath\CMakeLists.txt C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\embree\embree-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\tbb\TBBTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\scripts\buildsystems\vcpkg.cmake CMakeCache.txt CMakeFiles\4.0.2\CMakeCCompiler.cmake CMakeFiles\4.0.2\CMakeCUDACompiler.cmake CMakeFiles\4.0.2\CMakeCXXCompiler.cmake CMakeFiles\4.0.2\CMakeRCCompiler.cmake CMakeFiles\4.0.2\CMakeSystem.cmake: phony
+build C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCUDAInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCXXInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeCommonLanguageInclude.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeDependentOption.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeFindDependencyMacro.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeGenericSystem.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeInitializeConfigs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeLanguageInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeRCInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CMakeSystemSpecificInitialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckCXXSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckIncludeFileCXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\CheckLibraryExists.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\CMakeCommonCompilerMacros.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Compiler\NVIDIA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindCUDAToolkit.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageHandleStandardArgs.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindPackageMessage.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\FindThreads.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCXXLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CMakeCommonLinkerInformation.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Internal\CheckSourceCompiles.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Linker\MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Linker\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-Initialize.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC-CXX.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-MSVC.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows-NVIDIA-CUDA.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\Windows.cmake C$:\Program$ Files\CMake\share\cmake-4.0\Modules\Platform\WindowsPaths.cmake C$:\Users\phosp\dev\PhysPath\CMakeLists.txt C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\imath\ImathTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config-version.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-config.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\libdeflate\libdeflate-targets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfig.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRConfigVersion.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-debug.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets-release.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\installed\x64-windows\share\openexr\OpenEXRTargets.cmake C$:\Users\phosp\dev\PhysPath\extern\vcpkg\scripts\buildsystems\vcpkg.cmake CMakeCache.txt CMakeFiles\4.0.2\CMakeCUDACompiler.cmake CMakeFiles\4.0.2\CMakeCXXCompiler.cmake CMakeFiles\4.0.2\CMakeRCCompiler.cmake CMakeFiles\4.0.2\CMakeSystem.cmake: phony
 
 
 #############################################

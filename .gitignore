@@ -1,2 +1,8 @@
 *.vsidx
 .vs/*
+./build/*
+./build/cmake/*
+extern/*
+*.ilk
+*.pdb
+*.obj

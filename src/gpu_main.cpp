@@ -1,176 +1,208 @@
-// gpu_main.cpp  –  minimal OptiX-9 “hello” launch + EXR write
-//
-// Build assumptions
-//   • OPTIX_SDK_HOME   env-var points to OptiX-9 root (with include/, lib/64/)
-//   • CUDA Toolkit 12.x present (cuda.h, cuda_runtime.h)
-//   • OpenEXR 3 + Imath 3 pulled in via vcpkg   (OpenEXR::OpenEXR target)
-//
-// CMake must add NOMINMAX and the OptiX dirs, e.g.:
-//
-//   target_compile_definitions(pp_gpu_rgb PRIVATE NOMINMAX)
-//   target_include_directories(pp_gpu_rgb PRIVATE "${OPTIX_ROOT}/include")
-//   target_link_directories   (pp_gpu_rgb PRIVATE "${OPTIX_ROOT}/lib/64")
-//   target_link_libraries     (pp_gpu_rgb PRIVATE optix OpenEXR::OpenEXR)
-//
-// The device PTX is loaded at run-time from “gpu_kernels.ptx”.
-#define OPTIX_DEFINE_FUNCTIONS     // <--  make the header *define* the symbols
-#include <optix_function_table_definition.h>
-#include <optix.h>
-#include <optix_stubs.h>
+// gpu_main.cpp – Host-side application for OptiX path tracer proof-of-concept
+// ---------------------------------------------------------------
 #include <cuda_runtime.h>
+#include <optix.h>
+#define OPTIX_DEFINE_FUNCTIONS
+#include <optix_function_table_definition.h>
+#include <optix_stubs.h>
+#include <optix_stack_size.h>
 
-#include <ImfRgbaFile.h>
-#include <ImathVec.h>
-
+#include <OpenEXR/ImfRgbaFile.h>
+#include <Imath/half.h>
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <vector>
 
-#define checkOptix(call, msg)                                         \
-    do {                                                              \
-        OptixResult _res = call;                                      \
-        if (_res != OPTIX_SUCCESS) {                                  \
-            std::cerr << "OptiX error (" << _res << "): " << msg;     \
-            std::exit(1);                                             \
-        }                                                             \
-    } while (0)
+#include "camera/camera.h"      // phys::cam::PinholeCamera
+#include "gpu/launch_params.h"      // LaunchParams + extern __constant__ params
 
-/* ------------------------------------------------------------------ */
-/* helpers                                                            */
-/* ------------------------------------------------------------------ */
+#define CHK(call)                                                            \
+  do { OptixResult _r = (call);                                             \
+       if (_r != OPTIX_SUCCESS) {                                           \
+           std::cerr << "OptiX error " << _r                               \
+                     << " at " << __FILE__ << ':' << __LINE__             \
+                     << std::endl;                                          \
+           std::exit(1); } } while(0)
 
-static std::string readFile(const char* path)
-{
-    std::ifstream ifs(path, std::ios::binary);
-    std::ostringstream ss;
-    ss << ifs.rdbuf();
+// Utility: read entire file into a string
+static std::string readFile(const char* path) {
+    std::ifstream fs(path, std::ios::binary);
+    std::ostringstream ss; ss << fs.rdbuf();
     return ss.str();
 }
 
-/* launch-param struct must match the one in gpu_kernels.cu */
-struct Params
-{
-    float4* pixels;
-    unsigned int width;
-    unsigned int height;
-};
-
-/* ------------------------------------------------------------------ */
-/* main                                                               */
-/* ------------------------------------------------------------------ */
-
-int main()
-{
+int main() {
     constexpr unsigned W = 512, H = 512;
-    const size_t pixelCount = W * size_t(H);
+    const size_t pixelCount = size_t(W) * size_t(H);
 
-    /* ---- OptiX context ------------------------------------------- */
-    checkOptix(optixInit(), "optixInit");
+    // 0. CUDA memcpy test (validate buffer transfers)
+    {
+        float4* d_test = nullptr;
+        cudaMalloc(&d_test, pixelCount * sizeof(float4));
+        std::vector<float4> hostTest(pixelCount, make_float4(0.25f, 0.5f, 0.75f, 1.0f));
+        cudaMemcpy(d_test, hostTest.data(), pixelCount * sizeof(float4), cudaMemcpyHostToDevice);
+        std::vector<float4> testBuf(pixelCount);
+        cudaMemcpy(testBuf.data(), d_test, pixelCount * sizeof(float4), cudaMemcpyDeviceToHost);
+        std::cout << "Memcpy test – first pixel = "
+            << testBuf[0].x << ", "
+            << testBuf[0].y << ", "
+            << testBuf[0].z << ", "
+            << testBuf[0].w << std::endl;
+        cudaFree(d_test);
+    }
 
+    // 1. Initialize CUDA runtime and OptiX
+    cudaFree(0);
+    CHK(optixInit());
+    OptixDeviceContextOptions ctxOpts = {};
+    ctxOpts.logCallbackFunction = [](unsigned lvl, const char*, const char* msg, void*) {
+        std::cerr << "[OptiX] " << lvl << ": " << msg << std::endl;
+        };
+    ctxOpts.logCallbackLevel = 4;
     OptixDeviceContext context = nullptr;
-    checkOptix(optixDeviceContextCreate(0, nullptr, &context),
-        "device context create");
+    CHK(optixDeviceContextCreate(0, &ctxOpts, &context));
+    std::cout << "OptiX context created" << std::endl;
 
-    /* ---- load PTX and create module ------------------------------ */
-    const std::string ptx = readFile("gpu_kernels.ptx");
-
-    OptixPipelineCompileOptions compileOpts = {};
-    compileOpts.traversableGraphFlags = OPTIX_TRAVERSABLE_GRAPH_FLAG_ALLOW_SINGLE_GAS;
-    compileOpts.usesMotionBlur = 0;
-    compileOpts.numPayloadValues = 2;
-    compileOpts.numAttributeValues = 2;
-    compileOpts.exceptionFlags = OPTIX_EXCEPTION_FLAG_NONE;
-    compileOpts.pipelineLaunchParamsVariableName = "params";
-
-    OptixModuleCompileOptions mOpts = {};          // defaults fine
-    OptixModule module = nullptr;
-
-    checkOptix(optixModuleCreate(
-        context,              // OptixDeviceContext
-        &mOpts,               // OptixModuleCompileOptions
-        &compileOpts,         // OptixPipelineCompileOptions
-        ptx.c_str(),          // pointer to PTX string
-        ptx.size(),           // PTX size in bytes
-        nullptr, nullptr,     // (optional) log buffer + size
-        &module), "module create");
-
-    /* ---- program group (ray-gen only) ---------------------------- */
-    OptixProgramGroupDesc pgDesc = {};
-    pgDesc.kind = OPTIX_PROGRAM_GROUP_KIND_RAYGEN;
-    pgDesc.raygen.module = module;
-    pgDesc.raygen.entryFunctionName = "__raygen__rg";
-
-    OptixProgramGroup pg = nullptr;
-    checkOptix(optixProgramGroupCreate(
-        context, &pgDesc, 1,
-        nullptr, nullptr, nullptr, &pg),
-        "program group create");
-
-    /* ---- pipeline ------------------------------------------------ */
-    OptixProgramGroup pgs[] = { pg };
-
-    OptixPipelineLinkOptions linkOpts = {};
-    linkOpts.maxTraceDepth = 1;
-    //linkOpts.debugLevel = OPTIX_COMPILE_DEBUG_LEVEL_NONE;
-
-    OptixPipeline pipeline = nullptr;
-    checkOptix(optixPipelineCreate(
-        context,
-        &compileOpts,
-        &linkOpts,
-        pgs, 1,
-        nullptr, nullptr,
-        &pipeline),
-        "pipeline create");
-
-    /* ---- shader binding table (single RG record) ----------------- */
-    CUdeviceptr  d_raygenRecord = 0;
-    const size_t sbtSize = OPTIX_SBT_RECORD_HEADER_SIZE;
-    cudaMalloc(reinterpret_cast<void**>(&d_raygenRecord), sbtSize);
-    OptixShaderBindingTable sbt = {};
-    sbt.raygenRecord = d_raygenRecord;
-
-    /* ---- launch params & pixel buffer ---------------------------- */
+    // 2. Camera and device buffer
+    phys::cam::PinholeCamera cam = phys::cam::makePinhole(
+        make_float3(0, 0, 5), make_float3(0, 0, 0), make_float3(0, 1, 0), 45.0f, float(W) / H);
     float4* d_pixels = nullptr;
     cudaMalloc(&d_pixels, pixelCount * sizeof(float4));
+    LaunchParams hParams{ cam, d_pixels, W, H };
+    LaunchParams* d_params = nullptr;
+    cudaMalloc(&d_params, sizeof(LaunchParams));
+    cudaMemcpy(d_params, &hParams, sizeof(hParams), cudaMemcpyHostToDevice);
 
-    Params h_params{ d_pixels, W, H };
-    Params* d_params = nullptr;
-    cudaMalloc(reinterpret_cast<void**>(&d_params), sizeof(Params));
-    cudaMemcpy(d_params, &h_params, sizeof(Params), cudaMemcpyHostToDevice);
+    // 3. Compile PTX module
+    std::string ptx = readFile("gpu_kernels.ptx");
+    char modLog[4096]; size_t modLogSize = sizeof(modLog);
+    OptixModuleCompileOptions mcOpts = {};
+    OptixPipelineCompileOptions pcOpts = {};
+    pcOpts.traversableGraphFlags = OPTIX_TRAVERSABLE_GRAPH_FLAG_ALLOW_SINGLE_GAS;
+    pcOpts.pipelineLaunchParamsVariableName = "params";
+    OptixModule module = nullptr;
+    CHK(optixModuleCreate(context, &mcOpts, &pcOpts,
+        ptx.c_str(), ptx.size(), modLog, &modLogSize, &module));
+    if (modLogSize) std::cerr << "Module log:\n" << modLog << std::endl;
+    std::cout << "PTX module OK" << std::endl;
+    // --- Debug print: before creating raygen program group ---
+    std::cout << "Creating Ray-Gen Program Group..." << std::endl;
 
-    /* ---- launch -------------------------------------------------- */
-    checkOptix(optixLaunch(
-        pipeline, 0,                   // stream = 0
-        reinterpret_cast<CUdeviceptr>(d_params),
-        sizeof(Params),
-        &sbt,
-        W, H, 1),
-        "optixLaunch");
+    // 4a. Ray-gen program group
+    OptixProgramGroupDesc rgDesc = {};
+    rgDesc.kind = OPTIX_PROGRAM_GROUP_KIND_RAYGEN;
+    rgDesc.raygen.module = module;
+    rgDesc.raygen.entryFunctionName = "__raygen__rg";
+
+    OptixProgramGroupOptions pgOpts = {};
+    OptixProgramGroup rgPg = nullptr;
+    char rgLog[2048]; size_t rgLogSize = sizeof(rgLog);
+    OptixResult rgRes = optixProgramGroupCreate(
+        context,
+        &rgDesc,
+        1,
+        &pgOpts,
+        rgLog, &rgLogSize,
+        &rgPg
+    );
+    std::cerr << "Raygen PG result = " << rgRes << std::endl;
+    if (rgLogSize) std::cerr << "Raygen PG log:" << rgLog << std::endl;
+        if (rgRes != OPTIX_SUCCESS) {
+            std::cerr << "Failed to create Ray-Gen Program Group" << std::endl;
+            return 1;
+        }
+    std::cout << "Raygen PG OK" << std::endl;
+    // --- Debug print: before creating miss program group ---
+    std::cout << "Creating Miss Program Group..." << std::endl;
+
+    // 4b. Miss program group
+    std::cout << "Creating Miss Program Group..." << std::endl;
+    OptixProgramGroupDesc msDesc = {};
+    msDesc.kind = OPTIX_PROGRAM_GROUP_KIND_MISS;
+    msDesc.miss.module = module;
+    msDesc.miss.entryFunctionName = "__miss__ms";
+
+    OptixProgramGroupOptions msOpts = {};
+    OptixProgramGroup msPg = nullptr;
+    char msLog[2048]; size_t msLogSize = sizeof(msLog);
+    OptixResult msRes = optixProgramGroupCreate(
+        context,
+        &msDesc,
+        1,
+        &msOpts,
+        msLog, &msLogSize,
+        &msPg
+    );
+    std::cerr << "Miss PG result = " << msRes << std::endl;
+    if (msLogSize) std::cerr << "Miss PG log:" << msLog << std::endl;
+        if (msRes != OPTIX_SUCCESS) {
+            std::cerr << "Failed to create Miss Program Group" << std::endl;
+            return 1;
+        }
+    std::cout << "Miss PG OK" << std::endl;
+    // --- Debug print: before pipeline creation ---
+    std::cout << "Building Pipeline..." << std::endl;
+
+    // 5. Build pipeline and set stack size
+    OptixPipelineLinkOptions linkOpts = {};
+    linkOpts.maxTraceDepth = 1;
+    OptixProgramGroup pgs[] = { rgPg,msPg };
+    OptixPipeline pipeline = nullptr;
+    CHK(optixPipelineCreate(context, &pcOpts, &linkOpts, pgs, 2, nullptr, nullptr, &pipeline));
+    CHK(optixPipelineSetStackSize(pipeline, 0u, 0u, 0u, 1u));
+    std::cout << "Pipeline & stack OK" << std::endl;
+    // --- Debug print: before launch ---
+    std::cout << "Launching OptiX..." << std::endl;
+
+    // 6. Build SBT
+    struct __align__(OPTIX_SBT_RECORD_ALIGNMENT) Rec { char header[OPTIX_SBT_RECORD_HEADER_SIZE]; } rgRec, msRec;
+    optixSbtRecordPackHeader(rgPg, &rgRec);
+    optixSbtRecordPackHeader(msPg, &msRec);
+    CUdeviceptr dRg, dMs;
+    cudaMalloc((void**)&dRg, sizeof(rgRec));
+    cudaMalloc((void**)&dMs, sizeof(msRec));
+    cudaMemcpy((void*)dRg, &rgRec, sizeof(rgRec), cudaMemcpyHostToDevice);
+    cudaMemcpy((void*)dMs, &msRec, sizeof(msRec), cudaMemcpyHostToDevice);
+    OptixShaderBindingTable sbt = {};
+    sbt.raygenRecord = dRg;
+    sbt.missRecordBase = dMs;
+    sbt.missRecordCount = 1;
+    sbt.missRecordStrideInBytes = sizeof(msRec);
+
+    // 7. Launch OptiX
+    CHK(optixLaunch(pipeline, 0,
+        reinterpret_cast<CUdeviceptr>(d_params), sizeof(LaunchParams),
+        &sbt, W, H, 1));
     cudaDeviceSynchronize();
+    std::cout << "optixLaunch completed" << std::endl;
+    // --- Debug print: after launch ---
+    std::cout << "OptiX launch done, proceeding to debug copy..." << std::endl;
 
-    /* ---- read back & write EXR ----------------------------------- */
-    std::vector<Imf::Rgba> hostPixels(pixelCount);
-    cudaMemcpy(hostPixels.data(), d_pixels,
-        pixelCount * sizeof(float4), cudaMemcpyDeviceToHost);
+    // 8. Debug first pixel
+    std::vector<float4> dbg(pixelCount);
+    cudaMemcpy(dbg.data(), d_pixels, pixelCount * sizeof(float4), cudaMemcpyDeviceToHost);
+    std::cout << "OptiX pixel[0] = "
+        << dbg[0].x << ", " << dbg[0].y << ", " << dbg[0].z << ", " << dbg[0].w << std::endl;
 
-    try {
-        Imf::RgbaOutputFile exr("gpu_hello.exr", W, H, Imf::WRITE_RGBA);
-        exr.setFrameBuffer(hostPixels.data(), 1, W);
-        exr.writePixels(H);
-        std::cout << "Wrote gpu_hello.exr (" << W << " × " << H << ")\n";
-    }
-    catch (const std::exception& e) {
-        std::cerr << "EXR write failed: " << e.what() << '\n';
-    }
+    // 9. Write EXR output
+    std::cout << "Writing EXR to gpu_hello.exr..." << std::endl;
+    Imf::RgbaOutputFile out("gpu_hello.exr", W, H, Imf::WRITE_RGBA);
+    std::vector<Imf::Rgba> buf(pixelCount);
+    for (size_t i = 0; i < pixelCount; ++i) { auto& p = dbg[i]; buf[i] = Imf::Rgba(Imath::half(p.x), Imath::half(p.y), Imath::half(p.z), Imath::half(p.w)); }
+    out.setFrameBuffer(buf.data(), 1, W);
+    out.writePixels(H);
+    std::cout << "Finished writing gpu_hello.exr" << std::endl;
 
-    /* ---- cleanup ------------------------------------------------- */
+    // Cleanup
     cudaFree(d_pixels);
-    cudaFree(reinterpret_cast<void*>(d_raygenRecord));
     cudaFree(d_params);
+    cudaFree((void*)dRg);
+    cudaFree((void*)dMs);
     optixPipelineDestroy(pipeline);
-    optixProgramGroupDestroy(pg);
+    optixProgramGroupDestroy(rgPg);
+    optixProgramGroupDestroy(msPg);
     optixModuleDestroy(module);
     optixDeviceContextDestroy(context);
     return 0;

@@ -1,19 +1,2 @@
 # ninja log v6
-11	394	7696094522102446	C:/Users/phosp/dev/PhysPath/build/gpu_kernels.ptx	f6d94053b1496415
-15	446	7696088897285703	CMakeFiles/pp_gpu_placeholder.dir/src/pp_hello.cpp.obj	59713eb446777fdc
-11	394	7696094522102446	gpu_kernels.ptx	f6d94053b1496415
-424	762	7696094522492463	pp_cpu_hello.exe	8451cd350e2e1082
-15	423	7696094518410152	CMakeFiles/pp_cpu_hello.dir/src/pp_cpu_hello.cpp.obj	4a5669db5147ffdd
-17	503	7696094518430146	CMakeFiles/pp_write_exr.dir/src/pp_write_exr.cpp.obj	6ea96cd7ee02566f
-16	671	7696097360748568	CMakeFiles/pp_gpu_rgb.dir/src/gpu_main.cpp.obj	6f4c38a3dae7efa1
-19	405	7696097360778570	pp_write_exr.exe	f131473099131b49
-18	1067	7696088897315703	CMakeFiles/pp_gpu_placeholder.dir/src/pp_hello.cu.obj	7e4429b821724e0a
-4	12	7696140971840317	clean	8c45b54705a541e8
-12	379	7696140988461094	gpu_kernels.ptx	f6d94053b1496415
-12	379	7696140988461094	C:/Users/phosp/dev/PhysPath/build/gpu_kernels.ptx	f6d94053b1496415
-16	669	7696140984912592	CMakeFiles/pp_cpu_hello.dir/src/pp_cpu_hello.cpp.obj	4a5669db5147ffdd
-18	747	7696140984942605	CMakeFiles/pp_write_exr.dir/src/pp_write_exr.cpp.obj	6ea96cd7ee02566f
-669	1021	7696140991449474	pp_cpu_hello.exe	8451cd350e2e1082
-379	1029	7696140988551953	CMakeFiles/pp_gpu_rgb.dir/src/gpu_main.cpp.obj	6f4c38a3dae7efa1
-747	1123	7696140992221146	pp_write_exr.exe	f131473099131b49
-1029	1505	7696140995046200	pp_gpu_rgb.exe	8aea7e7a617550e8
+13	1181	7714453232502931	CMakeFiles/pp_gpu_rgb.dir/src/gpu_main.cpp.obj	f35289463d9f4464
