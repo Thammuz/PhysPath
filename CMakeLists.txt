@@ -37,11 +37,12 @@ endif()
 # 3. Main renderer executable
 # -------------------------------------------------------------
 add_executable(pp_gpu_rgb src/gpu_main.cpp)
-
+# Prevent <windows.h> min/max macros from clobbering std::* / OptiX headers
 target_compile_definitions(pp_gpu_rgb PRIVATE NOMINMAX)
 
 target_link_libraries(pp_gpu_rgb PRIVATE
-    CUDA::cuda_driver
+    CUDA::cudart        # ? CUDA Runtime (cudaMalloc / cudaMemcpy / cudaDeviceSynchronize)
+    CUDA::cuda_driver   # low-level driver (optixInit uses this)
     OpenEXR::OpenEXR)
 
 if(usd_FOUND)
